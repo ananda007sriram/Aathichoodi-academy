@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
+        }
+
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background: linear-gradient(to bottom right, #4e54c8, #8f94fb);
+            color: #fff;
+            padding: 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+        }
+
+        .sidebar h2 {
+            font-size: 22px;
+            margin-bottom: 30px;
+        }
+
+        .sidebar a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            margin: 15px 0;
+            font-size: 16px;
+            padding: 8px;
+            border-radius: 6px;
+            transition: background 0.3s;
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .main-content {
+            margin-left: 250px;
+            padding: 40px;
+            width: calc(100% - 250px);
+        }
+
+        .main-content h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .search-bar {
+            width: 300px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 25px;
+            margin-bottom: 20px;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+        }
+
+        th, td {
+            padding: 12px 16px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4e54c8;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f1f1f1;
+        }
+
+        .status-pending {
+            color: #ff9800;
+            font-weight: bold;
+        }
+
+        .status-approved {
+            color: green;
+            font-weight: bold;
+        }
+
+        .status-rejected {
+            color: red;
+            font-weight: bold;
+        }
+
+        .action-buttons form {
+            display: inline;
+        }
+
+        .action-buttons button {
+            padding: 5px 10px;
+            margin-right: 5px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn-approve {
+            background-color: green;
+            color: white;
+        }
+
+        .btn-reject {
+            background-color: red;
+            color: white;
+        }
+
+        .btn-delete {
+            background-color: gray;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+            }
+
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="dashboard-container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>Admin Dashboard</h2>
+        <a href="#" class="active">Dashboard</a>
+        <a href="#">Users</a>
+        <a href="#">Analytics</a>
+        <a href="#">Settings</a>
+        <a href="{{ url_for('admin_logout') }}">Logout</a>
+    </div>
+
+    <!-- Main content -->
+    <div class="main-content">
+        <h1>Welcome, Admin</h1>
+        <input type="text" class="search-bar" placeholder="Search...">
+
+        <h2>Admission Applications</h2>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Parent Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Child Name</th>
+                        <th>Age</th>
+                        <th>Program</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for admission in admissions %}
+                    <tr>
+                        <td>{{ admission.id }}</td>
+                        <td>{{ admission.name }}</td>
+                        <td>{{ admission.email }}</td>
+                        <td>{{ admission.phone }}</td>
+                        <td>{{ admission.child_name }}</td>
+                        <td>{{ admission.child_age }}</td>
+                        <td>{{ admission.program }}</td>
+                        <td>
+                            <span class="status-{{ admission.status|lower }}">{{ admission.status }}</span>
+                        </td>
+                        <td>{{ admission.submission_date.date() }}</td>
+                        <td class="action-buttons">
+                            <form action="{{ url_for('update_status', id=admission.id) }}" method="post">
+                                <input type="hidden" name="status" value="Approved">
+                                <button class="btn-approve" type="submit">Approve</button>
+                            </form>
+                            <form action="{{ url_for('update_status', id=admission.id) }}" method="post">
+                                <input type="hidden" name="status" value="Rejected">
+                                <button class="btn-reject" type="submit">Reject</button>
+                            </form>
+                            <a href="{{ url_for('delete_admission', id=admission.id) }}">
+                                <button class="btn-delete">Delete</button>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

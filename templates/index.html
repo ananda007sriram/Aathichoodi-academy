@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Aathichoodi Academy</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Baloo+2:wght@700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+    <style>
+        /* General Styles */
+        :root {
+            --primary: #FF6B00;
+            --secondary: #FFA500;
+            --accent: #FF4500;
+            --light: #FFF3E0;
+            --dark: #333;
+            --blue: #1E88E5;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #87CEEB, #B3E5FC);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3 {
+            font-family: 'Baloo 2', cursive;
+            font-weight: 700;
+        }
+        
+        /* Admissions Open Banner */
+        .admission-banner {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.3rem;
+            color: white;
+            background: linear-gradient(90deg, var(--accent), var(--primary));
+            padding: 12px 30px;
+            font-weight: bold;
+            border-radius: 50px;
+            display: inline-block;
+            animation: pulse 1.5s infinite alternate, float 3s ease-in-out infinite;
+            margin-top: 10px;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+            border: 2px solid white;
+        }
+        
+        .admission-banner i {
+            margin: 0 8px;
+        }
+        
+        @keyframes pulse {
+            from { transform: translateX(-50%) scale(1); }
+            to { transform: translateX(-50%) scale(1.05); }
+        }
+        
+        @keyframes float {
+            0%, 100% { top: 20px; }
+            50% { top: 25px; }
+        }
+        
+        /* Header Section */
+        .header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 80px 20px 60px;
+            border-radius: 0 0 30px 30px;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path fill="rgba(255,255,255,0.1)" d="M0,0 L100,0 L100,100 Q50,80 0,100 Z"></path></svg>');
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            opacity: 0.5;
+        }
+        
+        .header h1 {
+            font-size: 3.5rem;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .logo {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+        }
+        
+        .logo:hover {
+            transform: rotate(15deg) scale(1.1);
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Navigation Bar */
+        .navbar {
+            background: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            display: inline-flex;
+            box-shadow: var(--shadow);
+            position: relative;
+            top: -20px;
+            z-index: 10;
+        }
+        
+        .navbar a {
+            text-decoration: none;
+            color: var(--primary);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 0 15px;
+            transition: all 0.3s;
+            position: relative;
+            padding: 5px 0;
+        }
+        
+        .navbar a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--accent);
+            transition: width 0.3s;
+            border-radius: 3px;
+        }
+        
+        .navbar a:hover {
+            color: var(--accent);
+        }
+        
+        .navbar a:hover::after {
+            width: 100%;
+        }
+        
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .content {
+            padding: 40px;
+            background: white;
+            border-radius: 20px;
+            margin: 40px auto;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .content::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(45deg, var(--primary), var(--blue));
+            z-index: -1;
+            border-radius: 30px;
+            opacity: 0.1;
+        }
+        
+        .content h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .content p {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            text-align: center;
+        }
+        
+        /* Features Section */
+        .section {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .box {
+            width: 280px;
+            padding: 30px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transition: height 0.3s;
+        }
+        
+        .box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .box:hover::before {
+            height: 10px;
+        }
+        
+        .box i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            display: inline-block;
+            transition: transform 0.3s;
+        }
+        
+        .box:hover i {
+            transform: scale(1.2);
+        }
+        
+        .box h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        .box p {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 0;
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            background: var(--light);
+            padding: 60px 0;
+            margin: 60px 0;
+        }
+        
+        .testimonial-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .testimonial {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            margin: 20px;
+            position: relative;
+        }
+        
+        .testimonial::before {
+            content: '"';
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            font-size: 5rem;
+            color: rgba(255, 107, 0, 0.1);
+            font-family: serif;
+            line-height: 1;
+        }
+        
+        .testimonial p {
+            font-style: italic;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .testimonial-author img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+            border: 2px solid var(--primary);
+        }
+        
+        .author-info h4 {
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        
+        .author-info p {
+            font-style: normal;
+            font-size: 0.9rem;
+            color: #666;
+            margin: 0;
+        }
+        
+        /* Call to Action */
+        .cta {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 20px;
+            margin: 60px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .cta p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: white;
+            color: var(--primary);
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(0, 0, 0, 0.3);
+            color: var(--accent);
+        }
+        
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: white;
+            color: var(--accent);
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--dark);
+            color: white;
+            padding: 40px 0 20px;
+            font-size: 1rem;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 20px;
+            padding: 0 15px;
+        }
+        
+        .footer-section h3 {
+            color: var(--secondary);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+        
+        .footer-section p {
+            margin-bottom: 15px;
+        }
+        
+        .footer-section a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+            display: block;
+            margin-bottom: 10px;
+        }
+        
+        .footer-section a:hover {
+            color: var(--secondary);
+        }
+        
+        .social-links a {
+            display: inline-block;
+            margin-right: 15px;
+            font-size: 1.3rem;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+            margin-top: 20px;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+                flex-direction: column;
+            }
+            
+            .navbar {
+                flex-direction: column;
+                padding: 15px;
+            }
+            
+            .navbar a {
+                margin: 10px 0;
+            }
+            
+            .content {
+                padding: 30px 20px;
+            }
+            
+            .box {
+                width: 100%;
+                max-width: 350px;
+            }
+            
+            .admission-banner {
+                font-size: 1rem;
+                padding: 10px 20px;
+                top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- Admissions Open Message -->
+    <div class="admission-banner animate__animated animate__fadeInDown">
+        <i class="fas fa-star"></i> Admissions Open! Enroll Now! <i class="fas fa-star"></i>
+    </div>
+    
+    <!-- Header Section -->
+    <div class="header">
+        <div class="container">
+            <h1 class="animate__animated animate__fadeIn">
+                <img src="{{ url_for('static', filename='images/logo.jpeg') }}" alt="Aathichoodi Logo" class="logo">
+                Welcome to Aathichoodi Academy
+            </h1>
+            <p class="animate__animated animate__fadeIn animate__delay-1s">Where learning meets joy and creativity blossoms</p>
+            <div class="navbar animate__animated animate__fadeIn animate__delay-1s">
+                <a href="/"><i class="fas fa-home"></i> Home</a>
+                <a href="/about"><i class="fas fa-info-circle"></i> About</a>
+                <a href="/programs"><i class="fas fa-graduation-cap"></i> Programs</a>
+                <a href="/gallery"><i class="fas fa-images"></i> Gallery</a>
+                <a href="/admission"><i class="fas fa-user-plus"></i> Admission</a>
+                <a href="/contact"><i class="fas fa-envelope"></i> Contact</a>
+            </div>
+        </div>
+    </div>
+<!-- Add this near the end of the header div, before the closing </div> tag -->
+<div style="margin-top: 10px;">
+    <a href="/admin/login" style="color: white; background: #333; padding: 8px 15px; border-radius: 5px; text-decoration: none;">Admin Login</a>
+</div>
+    <!-- Main Content Section -->
+    <div class="container">
+        <div class="content animate__animated animate__fadeInUp">
+            <h2>We Make Learning Fun!</h2>
+            <p>Aathichoodi Play School provides a joyful environment where kids can explore and learn through games, activities, and interactive education. Our innovative approach nurtures creativity, curiosity, and confidence in every child.</p>
+        </div>
+
+        <!-- Features Section -->
+        <div class="section">
+            <div class="box animate__animated animate__fadeInLeft">
+                <i class="fas fa-gamepad"></i>
+                <h3>Interactive Games</h3>
+                <p>Engaging games that develop creativity, problem-solving skills, and teamwork in a fun environment.</p>
+            </div>
+            <div class="box animate__animated animate__fadeInUp">
+                <i class="fas fa-paint-brush"></i>
+                <h3>Creative Activities</h3>
+                <p>Art, music, dance, and storytelling activities that encourage self-expression and imagination.</p>
+            </div>
+            <div class="box animate__animated animate__fadeInRight">
+                <i class="fas fa-book-open"></i>
+                <h3>Innovative Education</h3>
+                <p>Montessori-inspired teaching methods that make learning natural, enjoyable, and effective.</p>
+            </div>
+        </div>
+        
+        <!-- Testimonials -->
+        <div class="testimonials">
+            <div class="testimonial-container">
+                <h2 class="animate__animated animate__fadeIn">What Parents Say</h2>
+                <div class="section">
+                    <div class="testimonial animate__animated animate__fadeInLeft">
+                        <p>My daughter has blossomed since joining Aathichoodi. The teachers are wonderful and she looks forward to school every day!</p>
+                        <div class="testimonial-author">
+                            <img src="https://randomuser.me/api/portraits/women/43.jpg" alt="Parent">
+                            <div class="author-info">
+                                <h4>Priya M.</h4>
+                                <p>Parent of 4-year-old</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial animate__animated animate__fadeInRight">
+                        <p>The creative approach to learning has made such a difference. My son's confidence has grown tremendously.</p>
+                        <div class="testimonial-author">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Parent">
+                            <div class="author-info">
+                                <h4>Rajesh K.</h4>
+                                <p>Parent of 5-year-old</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Call to Action -->
+        <div class="cta animate__animated animate__fadeIn">
+            <h2>Ready to Begin Your Child's Learning Journey?</h2>
+            <p>Join our family of happy learners and watch your child thrive in our nurturing environment.</p>
+            <a href="/admission" class="btn btn-primary">Enroll Now</a>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <div class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>Aathichoodi Academy is dedicated to providing a joyful learning experience that nurtures young minds through creativity and play.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="/about">About Our School</a>
+                <a href="/programs">Our Programs</a>
+                <a href="/admission">Admission Process</a>
+                <a href="/contact">Contact Us</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Info</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Learning Street, Chennai</p>
+                <p><i class="fas fa-phone"></i> +91 98765 43210</p>
+                <p><i class="fas fa-envelope"></i> info@aathichoodi.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2024 Aathichoodi Academy. All rights reserved.
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Add animation on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const animateElements = document.querySelectorAll('.animate__animated');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        const animation = entry.target.getAttribute('data-animate');
+                        if (animation) {
+                            entry.target.classList.add(animation);
+                        }
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            animateElements.forEach(element => {
+                element.style.opacity = 0;
+                observer.observe(element);
+            });
+            
+            // Smooth scrolling for navigation
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

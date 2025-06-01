@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - Aathichoodi Play School</title>
+    <style>
+        :root {
+            --primary-color: #FF6B6B;
+            --secondary-color: #4ECDC4;
+            --accent-color: #FFE66D;
+            --dark-color: #292F36;
+            --light-color: #F7FFF7;
+        }
+        
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #F7FFF7;
+            color: var(--dark-color);
+            overflow-x: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .gallery-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            padding: 1rem;
+        }
+        
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            aspect-ratio: 1 / 1;
+            cursor: pointer;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .back-button {
+            display: inline-block;
+            margin: 2rem auto;
+            padding: 0.8rem 1.5rem;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .back-button:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            background-color: var(--dark-color);
+            color: white;
+            margin-top: 2rem;
+        }
+        
+        /* Lightbox Styles */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .lightbox.active {
+            display: flex;
+            opacity: 1;
+        }
+        
+        .lightbox-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            animation: fadeIn 0.3s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        .lightbox-img {
+            max-height: 80vh;
+            max-width: 90vw;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+            transition: transform 0.3s ease;
+        }
+        
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-size: 2.5rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+            z-index: 1001;
+        }
+        
+        .lightbox-close:hover {
+            transform: scale(1.2);
+            color: var(--accent-color);
+        }
+        
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            font-size: 3rem;
+            cursor: pointer;
+            padding: 0 20px;
+            user-select: none;
+            transition: transform 0.2s;
+            z-index: 1001;
+            background: rgba(0,0,0,0.3);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .lightbox-nav:hover {
+            transform: translateY(-50%) scale(1.1);
+            background: rgba(0,0,0,0.5);
+            color: var(--accent-color);
+        }
+        
+        .lightbox-prev {
+            left: 20px;
+        }
+        
+        .lightbox-next {
+            right: 20px;
+        }
+        
+        .lightbox-caption {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            color: white;
+            font-size: 1.2rem;
+            padding: 10px;
+            background: rgba(0,0,0,0.5);
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+        }
+        
+        /* Loading animation */
+        .lightbox-loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: var(--accent-color);
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+        
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .lightbox-nav {
+                font-size: 2rem;
+                width: 50px;
+                height: 50px;
+            }
+            
+            .lightbox-close {
+                font-size: 2rem;
+            }
+            
+            .lightbox-caption {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🌈 Our Playful Moments at Aathichoodi 🌈</h1>
+        <p>Capturing smiles, learning, and fun!</p>
+    </header>
+    
+    <div class="gallery-container">
+        <div class="gallery-grid">
+            <div class="gallery-item" onclick="openLightbox(0)">
+                <img src="{{ url_for('static', filename='images/WhatsApp Image 2025-04-01 at 5.22.01 PM.jpeg') }}" alt="Children playing">
+            </div>
+            <div class="gallery-item" onclick="openLightbox(1)">
+                <img src="{{ url_for('static', filename='images/IMG_20241221_121756394_HDR.jpg') }}" alt="Classroom activity">
+            </div>
+            <div class="gallery-item" onclick="openLightbox(2)">
+                <img src="{{ url_for('static', filename='images/IMG_20241223_104814265_HDR.jpg') }}" alt="Art and craft">
+            </div>
+            <div class="gallery-item" onclick="openLightbox(3)">
+                <img src="{{ url_for('static', filename='images/IMG_20241223_104934161_HDR.jpg') }}" alt="Outdoor play">
+            </div>
+            <div class="gallery-item" onclick="openLightbox(4)">
+                <img src="{{ url_for('static', filename='images/WhatsApp Image 2025-05-17 at 3.31.42 PM (2).jpeg') }}" alt="Story time">
+            </div>
+            <div class="gallery-item" onclick="openLightbox(5)">
+                <img src="{{ url_for('static', filename='images/IMG_20250110_105417443_HDR.jpg') }}" alt="Group activity">
+            </div>
+            <div class="gallery-item" onclick="openLightbox(6)">
+                <img src="{{ url_for('static', filename='images/IMG_20250110_110019296_HDR.jpg') }}" alt="Learning time">
+            </div>
+            <div class="gallery-item" onclick="openLightbox(7)">
+                <img src="{{ url_for('static', filename='images/IMG_20250110_113015131_HDR.jpg') }}" alt="Celebration">
+            </div>
+            <div class="gallery-item" onclick="openLightbox(8)">
+                <img src="{{ url_for('static', filename='images/IMG_20250110_113656867_HDR.jpg') }}" alt="Creative play">
+            </div>
+            <div class="gallery-item" onclick="openLightbox(9)">
+                <img src="{{ url_for('static', filename='images/WhatsApp Image 2025-04-01 at 5.22.02 PM.jpeg') }}" alt="Friendship moments">
+            </div>
+            <div class="gallery-item" onclick="openLightbox(10)">
+                <img src="{{ url_for('static', filename='images/WhatsApp Image 2025-05-17 at 3.31.41 PM.jpeg') }}" alt="Special event">
+            </div>
+            <div class="gallery-item" onclick="openLightbox(11)">
+                <img src="{{ url_for('static', filename='images/WhatsApp Image 2025-05-17 at 3.31.42 PM (1).jpeg') }}" alt="Show and tell">
+            </div>
+            <div class="gallery-item" onclick="openLightbox(12)">
+                <img src="{{ url_for('static', filename='images/WhatsApp Image 2025-05-17 at 3.31.43 PM (2).jpeg') }}" alt="Music time">
+            </div>
+            <div class="gallery-item" onclick="openLightbox(13)">
+                <img src="{{ url_for('static', filename='images/WhatsApp Image 2025-05-17 at 3.31.43 PM (3).jpeg') }}" alt="Field trip">
+            </div>
+            <div class="gallery-item" onclick="openLightbox(14)">
+                <img src="{{ url_for('static', filename='images/WhatsApp Image 2025-05-17 at 3.31.43 PM.jpeg') }}" alt="Annual day">
+            </div>
+        </div>
+        
+        <div style="text-align: center;">
+            <a href="/" class="back-button">← Back to Home</a>
+        </div>
+    </div>
+    
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+        <span class="lightbox-nav lightbox-prev" onclick="changeImage(-1)">&#10094;</span>
+        <span class="lightbox-nav lightbox-next" onclick="changeImage(1)">&#10095;</span>
+        <div class="lightbox-content">
+            <div class="lightbox-loading" id="lightbox-loading"></div>
+            <img class="lightbox-img" id="lightbox-img" src="" alt="">
+            <div class="lightbox-caption" id="lightbox-caption"></div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>© 2025 Aathichoodi Play School | Where Learning Begins with Joy</p>
+    </footer>
+
+    <script>
+        // Lightbox functionality
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxCaption = document.getElementById('lightbox-caption');
+        const lightboxLoading = document.getElementById('lightbox-loading');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        let currentIndex = 0;
+        
+        // Array to store image sources and alt texts
+        const images = Array.from(galleryItems).map(item => ({
+            src: item.querySelector('img').src,
+            alt: item.querySelector('img').alt
+        }));
+        
+        function openLightbox(index) {
+            currentIndex = index;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            showLoading(true);
+            preloadImage(images[currentIndex].src, () => {
+                updateLightbox();
+                showLoading(false);
+            });
+        }
+        
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        
+        function changeImage(step) {
+            currentIndex += step;
+            
+            // Wrap around if at beginning or end
+            if (currentIndex >= images.length) {
+                currentIndex = 0;
+            } else if (currentIndex < 0) {
+                currentIndex = images.length - 1;
+            }
+            
+            showLoading(true);
+            preloadImage(images[currentIndex].src, () => {
+                updateLightbox();
+                showLoading(false);
+            });
+        }
+        
+        function updateLightbox() {
+            lightboxImg.src = images[currentIndex].src;
+            lightboxCaption.textContent = images[currentIndex].alt;
+            
+            // Add animation effect
+            lightboxImg.style.opacity = 0;
+            setTimeout(() => {
+                lightboxImg.style.opacity = 1;
+            }, 50);
+        }
+        
+        function showLoading(show) {
+            lightboxLoading.style.display = show ? 'block' : 'none';
+            lightboxImg.style.display = show ? 'none' : 'block';
+        }
+        
+        function preloadImage(src, callback) {
+            const img = new Image();
+            img.onload = function() {
+                if (callback) callback();
+            };
+            img.src = src;
+        }
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (lightbox.classList.contains('active')) {
+                if (e.key === 'Escape') {
+                    closeLightbox();
+                } else if (e.key === 'ArrowLeft') {
+                    changeImage(-1);
+                } else if (e.key === 'ArrowRight') {
+                    changeImage(1);
+                }
+            }
+        });
+        
+        // Close lightbox when clicking on the background
+        lightbox.addEventListener('click', function(e) {
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
+        });
+        
+        // Swipe gestures for touch devices
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        lightbox.addEventListener('touchstart', function(e) {
+            touchStartX = e.changedTouches[0].screenX;
+        }, false);
+        
+        lightbox.addEventListener('touchend', function(e) {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, false);
+        
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 50) {
+                changeImage(1); // Swipe left - next image
+            }
+            if (touchEndX > touchStartX + 50) {
+                changeImage(-1); // Swipe right - previous image
+            }
+        }
+    </script>
+</body>
+</html>

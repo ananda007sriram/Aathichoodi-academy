@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educational Programs - Aathichoodi Play School</title>
+    <style>
+        :root {
+            --primary-color: #4a6fa5;
+            --secondary-color: #ff9f1c;
+            --accent-color: #2ec4b6;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        
+        .programs-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            padding: 40px 0;
+        }
+        
+        .program-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .program-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .program-icon {
+            font-size: 3rem;
+            padding: 20px 0;
+            text-align: center;
+            color: var(--secondary-color);
+            background-color: rgba(74, 111, 165, 0.1);
+        }
+        
+        .program-content {
+            padding: 20px;
+        }
+        
+        .program-title {
+            color: var(--primary-color);
+            margin-top: 0;
+            font-size: 1.5rem;
+        }
+        
+        .program-age {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+        
+        .program-features {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        .program-features li {
+            padding: 5px 0;
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .program-features li:before {
+            content: "✓";
+            color: var(--secondary-color);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-top: 15px;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #3a5a80;
+        }
+        
+        .back-link {
+            display: block;
+            text-align: center;
+            margin: 30px 0;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .programs-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Our Educational Programs</h1>
+            <p>Nurturing young minds through play-based learning and development</p>
+        </div>
+    </header>
+    
+    <main class="container">
+        <div class="programs-container">
+            <div class="program-card">
+                <div class="program-icon">👶</div>
+                <div class="program-content">
+                    <h2 class="program-title">TODDLERS</h2>
+                    <span class="program-age">Ages 1-2 years</span>
+                    <p>Our MON-1 program focuses on sensory exploration and early developmental milestones.</p>
+                    <ul class="program-features">
+                        <li>Sensory play activities</li>
+                        <li>Basic motor skills development</li>
+                        <li>Music and movement</li>
+                        <li>Parent-child bonding activities</li>
+                    </ul>
+                    <a href="#" class="btn">Learn More</a>
+                </div>
+            </div>
+            
+            <div class="program-card">
+                <div class="program-icon">🧒</div>
+                <div class="program-content">
+                    <h2 class="program-title">PLAYGROUP</h2>
+                    <span class="program-age">Ages 2-3 years</span>
+                    <p>Our MON-2 program introduces structured play and early learning concepts.</p>
+                    <ul class="program-features">
+                        <li>Language development</li>
+                        <li>Creative arts</li>
+                        <li>Social skills building</li>
+                        <li>Introduction to shapes & colors</li>
+                    </ul>
+                    <a href="#" class="btn">Learn More</a>
+                </div>
+            </div>
+            
+            <div class="program-card">
+                <div class="program-icon">👧</div>
+                <div class="program-content">
+                    <h2 class="program-title">Pre,KG</h2>
+                    <span class="program-age">Ages 3-4 years</span>
+                    <p>Our MON-3 program prepares children for kindergarten with foundational skills.</p>
+                    <ul class="program-features">
+                        <li>Early literacy & numeracy</li>
+                        <li>STEM exploration</li>
+                        <li>Problem-solving activities</li>
+                        <li>Emotional intelligence development</li>
+                    </ul>
+                    <a href="#" class="btn">Learn More</a>
+                </div>
+            </div>
+            
+            <div class="program-card">
+                <div class="program-icon">🏠</div>
+                <div class="program-content">
+                    <h2 class="program-title">Daycare Program</h2>
+                    <span class="program-age">From 6 months</span>
+                    <p>Safe, nurturing environment for your little ones with flexible hours.</p>
+                    <ul class="program-features">
+                        <li>24/7 CCTV monitored</li>
+                        <li>Nutritious meals provided</li>
+                        <li>Regular developmental updates</li>
+                        <li>Flexible scheduling options</li>
+                    </ul>
+                    <a href="#" class="btn">Learn More</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="additional-info">
+            <h2>Program Highlights</h2>
+            <ul>
+                <li>✅ Certified and experienced educators</li>
+                <li>✅  individual attention</li>
+                <li>✅ Safe and child-friendly environment</li>
+                <li>✅ Regular parent-teacher communication</li>
+                <li>✅ Outdoor play area with safety measures</li>
+            </ul>
+            
+            <h2>Daily Schedule</h2>
+            <p>All programs include a balanced mix of activities:</p>
+            <ol>
+                <li>Morning circle time</li>
+                <li>Theme-based learning activities</li>
+                <li>Creative arts and crafts</li>
+                <li>Outdoor play (weather permitting)</li>
+                <li>Story time and music</li>
+                <li>Skill-building exercises</li>
+            </ol>
+        </div>
+        
+        <a href="/" class="back-link">← Back to Home</a>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <p>© 2023 Aathichoodi Play School. All rights reserved.</p>
+            <p>Contact us: info@aathichoodi.com | (123) 456-7890</p>
+        </div>
+    </footer>
+</body>
+</html>
